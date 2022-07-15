@@ -46,7 +46,7 @@ then
     else 
 	        echo "#####################################################INSTALLING CLIE####################################################"
 		    sudo apt install awscli 
-	    fi
+	 fi
 
 
 echo "#####################################################################COPY ARCHIVE TO BUCKET###############################################"
@@ -54,3 +54,22 @@ aws s3 \
 	cp /tmp/${name}-httpd-logs-${timestamp}.tar \
 	s3://${s3_bucket}/${name}-httpd-logs-${timestamp}.tar
 
+docroot="/var/www/html"
+if [ ! -f ${docroot}/inventory.html ];
+then
+	        echo "###################################################INVENTORY FILE IS NOT AVAILABLE, CREATING A INVENTORY FILE #######################################"
+		        echo -e 'Log Type\t-\tTime Created\t-\tType\t-\tSize' >${docroot}/inventory.html
+			        echo "#################################################INVENTORY FILE CREATED############################################"
+				    fi
+
+				    cronfile=/etc/cron.d/automation
+				    if [[ ! -f ${cronfile} ]]
+				    then
+					            echo "#########################################CRON FILE IS NOT AVAILABLE#####################"
+						             echo " * * * * * root/Automation_Project/Automation.sh" >> ${cronfile}
+							              echo "#####################################CRON FILE CREATED#################################"
+								       else
+									                echo "######################################CRON FILE ALREADY CREATED################################"
+											 fi
+
+					
